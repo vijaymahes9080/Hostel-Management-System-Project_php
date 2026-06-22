@@ -1,42 +1,64 @@
 # 🏨 Hostel Management System (HMS)
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![PHP Version](https://img.shields.io/badge/PHP-%3E%3D%205.6-8892BF.svg)](https://www.php.net/)
-[![Database](https://img.shields.io/badge/Database-MySQL-4479A1.svg)](https://www.mysql.com/)
+<p align="center">
+  <img src="docs/images/banner.png" alt="Hostel Management System Banner" width="100%">
+</p>
 
-A comprehensive, multi-role web application built with PHP and MySQL to streamline hostel operations. It simplifies managing student allocations, billing, payments, notices, and resource configuration across three user levels: Administrators, Employees, and Students.
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-blue.svg" alt="License: MIT"></a>
+  <a href="https://www.php.net/"><img src="https://img.shields.io/badge/PHP-%3E%3D%205.6-8892BF.svg" alt="PHP Version"></a>
+  <a href="https://www.mysql.com/"><img src="https://img.shields.io/badge/Database-MySQL-4479A1.svg" alt="Database"></a>
+</p>
 
 ---
 
-## 🌟 Key Features
+## 📖 Introduction
 
-### 👤 Role-Based Portals
+**Hostel Management System (HMS)** is a comprehensive, multi-role web application built with PHP and MySQL to streamline hostel operations. It simplifies managing student allocations, billing, payments, notices, and resource configuration across three user levels: **Administrators**, **Employees**, and **Students**.
+
+---
+
+## 🌟 Key Features & Visual Preview
+
+### 1. 👤 Role-Based Portals & Dashboard
 *   **Administrator Portal**: Complete system configuration, student admissions, user/employee management, billing setup, and financial approvals.
 *   **Employee Portal**: Handle daily operations, billing entry, and notice updates.
 *   **Student Portal**: View individual room details, billing history, notices, and payment submissions.
 
-### 🏢 Hostel Setup & Administration
+<p align="center">
+  <img src="docs/images/dashboard.png" alt="Dashboard Preview" width="85%">
+</p>
+
+### 2. 🏢 Hostel Setup & Student Admissions
 *   **Block & Room Management**: Easily configure hostel blocks (buildings) and room capacities.
 *   **Admission System**: Smooth workflow for registering new student profiles, assigning rooms, and uploading profile photos.
-*   **Security & Multi-user Settings**: Secure password hashing (`md5` base) and custom user account generation.
+*   **Security Settings**: Secure password hashing (`md5` base) and custom user account generation.
 
-### 💰 Financials & Billing
+<p align="center">
+  <img src="docs/images/admissions.png" alt="Admissions & Registration Preview" width="85%">
+</p>
+
+### 3. 💰 Financials, Billing & Payment Tracking
 *   **Flexible Fee Setup**: Configure base accommodation fees, utility charges, and meal rates.
 *   **Daily Meal & Cost Tracking**: Keep record of individual student meal counts and daily expense logs.
 *   **Automated Billing**: Compile monthly utility/meal bills automatically.
 *   **Payment Approvals**: Process, log, and approve student fee deposits online/offline.
 
-### 📢 Communication Hub
-*   **Notice Board**: Broadcast notifications, announcements, and guidelines to employees and students in real-time.
+<p align="center">
+  <img src="docs/images/billing.png" alt="Financials & Billing Preview" width="85%">
+</p>
 
 ---
 
 ## 🛠️ Technology Stack
 
-*   **Backend**: PHP
-*   **Database**: MySQL
-*   **Frontend**: HTML5, CSS3, Vanilla JavaScript, Bootstrap 3 (sb-admin-2 template), jQuery
-*   **Charts & Libraries**: Morris.js, Raphael.js, Calendario, FontAwesome
+| Component | Technology | Description |
+| :--- | :--- | :--- |
+| **Backend** | PHP | Core server-side application logic |
+| **Database** | MySQL | Data persistence for students, rooms, notices, and billing |
+| **Frontend** | HTML5, CSS3, ES6 JS | Structure, design, and user interactivity |
+| **UI Framework** | Bootstrap 3 (sb-admin-2) | Responsive admin dashboard template |
+| **Libraries** | jQuery, Morris.js, Raphael.js | Dynamic charting, DOM manipulation, and calendar utilities |
 
 ---
 
@@ -46,10 +68,12 @@ A comprehensive, multi-role web application built with PHP and MySQL to streamli
 *   Web server environment: **XAMPP / WAMP / MAMP** (Requires a PHP environment with `mysql` extension enabled).
 
 ### Step-by-Step Installation
+
 1.  **Clone the Repository**:
     ```bash
     git clone https://github.com/vijaymahes9080/Hostel-Management-System-Project_php.git
     ```
+
 2.  **Move to Server Directory**:
     Place the project folder inside your web server's root directory (e.g., `C:/xampp/htdocs/hms/`).
 
@@ -106,8 +130,8 @@ Distributed under the **MIT License**. See the [LICENSE](LICENSE) file for more 
 
 ## 📬 Contact & Support
 
-Maintainer: **Vijay Mahes**  
-GitHub: [@vijaymahes9080](https://github.com/vijaymahes9080)  
-Email: [vijaymahes9080@gmail.com](mailto:vijaymahes9080@gmail.com)  
+*   **Maintainer**: Vijay Mahes
+*   **GitHub**: [@vijaymahes9080](https://github.com/vijaymahes9080)
+*   **Email**: [vijaymahes9080@gmail.com](mailto:vijaymahes9080@gmail.com)
 
 If you need any help running the project, feel free to open an issue or reach out via email!
