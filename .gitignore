@@ -1,0 +1,28 @@
+# PHP specific
+vendor/
+composer.lock
+*.log
+
+# Database backups & exports
+# (keeping hms.sql as it is the default schema)
+*.sql.gz
+*.sql.zip
+
+# Operating System specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
