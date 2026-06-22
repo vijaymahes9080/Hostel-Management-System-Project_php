@@ -16,9 +16,25 @@
 
 **Hostel Management System (HMS)** is a comprehensive, multi-role web application built with PHP and MySQL to streamline hostel operations. It simplifies managing student allocations, billing, payments, notices, and resource configuration across three user levels: **Administrators**, **Employees**, and **Students**.
 
+### 📊 Project Quick Glance
+
+| 👥 Target Audience | 🛠️ Architecture | 🛡️ Current Status | 📂 Database Engine |
+| :--- | :--- | :--- | :--- |
+| Admin, Warden, Students | Client-Server (LAMP/WAMP) | Educational Mockup | MySQL |
+
 ---
 
 ## 🌟 Key Features & Visual Preview
+
+### 🔄 System Workflow & Roles
+
+Below is a conceptual workflow of the platform showing how different actors interact with the system modules:
+
+<p align="center">
+  <img src="docs/images/workflow.png" alt="System Workflow Infographic" width="95%">
+</p>
+
+---
 
 ### 1. 👤 Role-Based Portals & Dashboard
 *   **Administrator Portal**: Complete system configuration, student admissions, user/employee management, billing setup, and financial approvals.
@@ -29,6 +45,8 @@
   <img src="docs/images/dashboard.png" alt="Dashboard Preview" width="85%">
 </p>
 
+---
+
 ### 2. 🏢 Hostel Setup & Student Admissions
 *   **Block & Room Management**: Easily configure hostel blocks (buildings) and room capacities.
 *   **Admission System**: Smooth workflow for registering new student profiles, assigning rooms, and uploading profile photos.
@@ -37,6 +55,8 @@
 <p align="center">
   <img src="docs/images/admissions.png" alt="Admissions & Registration Preview" width="85%">
 </p>
+
+---
 
 ### 3. 💰 Financials, Billing & Payment Tracking
 *   **Flexible Fee Setup**: Configure base accommodation fees, utility charges, and meal rates.
@@ -50,7 +70,51 @@
 
 ---
 
+## 📊 System Architecture & Data Flow
+
+This interactive Mermaid diagram describes the routing permission and data access for the admin, employee, and student interfaces:
+
+```mermaid
+graph TD
+    %% Define User Roles
+    Admin[👤 Administrator]
+    Employee[🧑‍💼 Employee]
+    Student[🎓 Student]
+
+    %% Main Subsystems
+    BlockRoom[🏢 Room & Block Config]
+    UserMgr[🔑 User Management]
+    Billing[💰 Billing & Payments]
+    NoticeHub[📢 Notice Board]
+
+    %% Admin Interactions
+    Admin -->|Configures| BlockRoom
+    Admin -->|Manages Accounts| UserMgr
+    Admin -->|Approves Payments| Billing
+    Admin -->|Publishes| NoticeHub
+
+    %% Employee Interactions
+    Employee -->|Manages admissions| UserMgr
+    Employee -->|Inputs charges| Billing
+    Employee -->|Updates notices| NoticeHub
+
+    %% Student Interactions
+    Student -->|Checks allocation| BlockRoom
+    Student -->|Submits payments| Billing
+    Student -->|Reads notices| NoticeHub
+
+    classDef role fill:#4F46E5,stroke:#312E81,stroke-width:2px,color:#fff;
+    classDef system fill:#0D9488,stroke:#115E59,stroke-width:2px,color:#fff;
+    class Admin,Employee,Student role;
+    class BlockRoom,UserMgr,Billing,NoticeHub system;
+```
+
+---
+
 ## 🛠️ Technology Stack
+
+<details>
+<summary><b>Click to expand Technology Stack Details</b></summary>
 
 | Component | Technology | Description |
 | :--- | :--- | :--- |
@@ -60,9 +124,14 @@
 | **UI Framework** | Bootstrap 3 (sb-admin-2) | Responsive admin dashboard template |
 | **Libraries** | jQuery, Morris.js, Raphael.js | Dynamic charting, DOM manipulation, and calendar utilities |
 
+</details>
+
 ---
 
 ## 🚀 Installation & Setup Guide
+
+<details>
+<summary><b>Click to view Setup & Configuration Instructions</b></summary>
 
 ### Prerequisites
 *   Web server environment: **XAMPP / WAMP / MAMP** (Requires a PHP environment with `mysql` extension enabled).
@@ -99,9 +168,14 @@
 5.  **Run the Application**:
     *   Open your browser and navigate to `http://localhost/hms/index.php`.
 
+</details>
+
 ---
 
 ## 🔑 Default Login Credentials
+
+<details>
+<summary><b>Click to view Default Accounts</b></summary>
 
 Use the following credentials to access the portals:
 
@@ -111,6 +185,8 @@ Use the following credentials to access the portals:
 *   **Student (Demo)**:
     *   **Username/Email**: `rasel@gmail.com`
     *   **Password**: `password` (or check database values inside the `users` table)
+
+</details>
 
 ---
 
