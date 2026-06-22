@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Student Admission - HMS</title>
+    <script src="../../dist/js/mockDb.js"></script>
+    <script src="../../dist/js/layout.js"></script>
+</head>
+<body>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header titlehms"><i class="fa fa-hand-o-right"></i> Student Admission Registration <i class="fa fa-hand-o-left"></i></h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-edit fa-fw"></i> Admission Form
+                    </div>
+                    <div class="panel-body">
+                        <form id="admission-form">
+                            <div class="row">
+                                <!-- Personal Info -->
+                                <div class="col-md-6">
+                                    <h4 class="pTitle">Personal Information</h4>
+                                    <div class="form-group">
+                                        <label>Student Name</label>
+                                        <input class="form-control" name="name" required placeholder="Full Name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Student ID</label>
+                                        <input class="form-control" name="studentId" required placeholder="e.g. 151-15-1155">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Cell No</label>
+                                        <input class="form-control" name="cellNo" required placeholder="Phone Number">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="email" class="form-control" name="email" required placeholder="Email Address">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Gender</label>
+                                        <select class="form-control" name="gender">
+                                            <option>Male</option>
+                                            <option>Female</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Date of Birth</label>
+                                        <input type="date" class="form-control" name="dob" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Blood Group</label>
+                                        <select class="form-control" name="bloodGroup">
+                                            <option>A(+)</option>
+                                            <option>A(-)</option>
+                                            <option>B(+)</option>
+                                            <option>B(-)</option>
+                                            <option>O(+)</option>
+                                            <option>O(-)</option>
+                                            <option>AB(+)</option>
+                                            <option>AB(-)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nationality</label>
+                                        <input class="form-control" name="nationality" value="Bangladeshi" required>
+                                    </div>
+                                </div>
+
+                                <!-- Academy & Parents Info -->
+                                <div class="col-md-6">
+                                    <h4 class="pTitle">Academic & Guardian Details</h4>
+                                    <div class="form-group">
+                                        <label>Institution Name</label>
+                                        <input class="form-control" name="nameOfInst" required placeholder="University / College">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Program / Major</label>
+                                        <input class="form-control" name="program" required placeholder="e.g. CSE">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Batch No</label>
+                                        <input class="form-control" name="batchNo" required placeholder="e.g. 34">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Allocated Room</label>
+                                        <select class="form-control" name="roomNo" id="room-select">
+                                            <!-- Dynamically loaded -->
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Father's Name</label>
+                                        <input class="form-control" name="fatherName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mother's Name</label>
+                                        <input class="form-control" name="motherName" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Present Address</label>
+                                        <textarea class="form-control" name="presentAddress" rows="2" required></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Permanent Address</label>
+                                        <textarea class="form-control" name="parmanentAddress" rows="2" required></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-lg btn-success pull-right"><i class="fa fa-save"></i> Register Admission</button>
+                                    <a href="studentlist.html" class="btn btn-lg btn-default"><i class="fa fa-arrow-left"></i> Cancel</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        document.addEventListener("layoutScriptsLoaded", function () {
+            // Load rooms in select dropdown
+            const rooms = mockDb.getRooms();
+            const roomSelect = document.getElementById('room-select');
+            roomSelect.innerHTML = "";
+            rooms.forEach(room => {
+                if (room.isActive === 'Y') {
+                    const option = document.createElement('option');
+                    option.value = room.roomNo;
+                    option.textContent = `${room.roomNo} (${room.blockName} - Capacity: ${room.seatCapacity})`;
+                    roomSelect.appendChild(option);
+                }
+            });
+
+            // Handle submit
+            document.getElementById('admission-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const student = {};
+                formData.forEach((value, key) => {
+                    student[key] = value;
+                });
+                
+                // Add to mock DB
+                student.admitDate = new Date().toISOString().split('T')[0];
+                mockDb.addStudent(student);
+
+                alert("🎉 Success: Student admission registered successfully!");
+                window.location.href = "studentlist.html";
+            });
+        });
+    </script>
+</body>
+</html>

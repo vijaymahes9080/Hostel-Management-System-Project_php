@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HMS - Login</title>
+    <link href="./dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./dist/css/sb-admin-2.css" rel="stylesheet">
+    <link href="./dist/css/appStyle.css" rel="stylesheet" type="text/css">
+    <script src="./dist/js/mockDb.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="login-panel panel panel-default" style="margin-top: 25%;">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-md-2 col-sm-2 col-xs-2">
+                            <img src="./dist/images/logo.png" alt="Logo">
+                        </div>
+                        <div class="col-md-10 col-sm-12 col-xs-10">
+                            <h4 class="pTitle" style="margin-left: 10px;">Hostel Management System</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="alert alert-info text-center" style="font-size: 12px; padding: 8px; margin-bottom: 15px;">
+                        🔑 <strong>Demo Accounts</strong><br>
+                        Admin: <code>admin</code> / <code>password</code><br>
+                        Student: <code>rasel@gmail.com</code> / <code>password</code><br>
+                        Employee: <code>emp@gmail.com</code> / <code>password</code>
+                    </div>
+                    <form id="login-form">
+                        <fieldset>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="E-mail/Login ID" name="email" id="email" type="text" autofocus required>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Password" name="password" id="password" type="password" required>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                </label>
+                                <label id="loginMsg" class="red" style="display: block; margin-top: 10px;"></label>
+                            </div>
+                            <button type="submit" class="btn btn-lg btn-success btn-block"><i class="glyphicon glyphicon-log-in"></i> Login</button>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('login-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const msgEl = document.getElementById('loginMsg');
+
+        const user = authenticateUser(email, password);
+        if (user) {
+            msgEl.textContent = "";
+            if (user.userGroupId === "UG004") {
+                window.location.href = "sdashboard.html";
+            } else if (user.userGroupId === "UG003") {
+                window.location.href = "edashboard.html";
+            } else {
+                window.location.href = "dashboard.html";
+            }
+        } else {
+            msgEl.textContent = "Login Id or Password Wrong!";
+        }
+    });
+</script>
+</body>
+</html>

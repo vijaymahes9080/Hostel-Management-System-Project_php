@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Employee Dashboard - HMS</title>
+    <script src="./dist/js/mockDb.js"></script>
+    <script src="./dist/js/layout.js"></script>
+</head>
+<body>
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header titlehms"><i class="fa fa-hand-o-right"></i> Employee Portal <i class="fa fa-hand-o-left"></i></h1>
+            </div>
+        </div>
+
+        <!-- Metric Cards -->
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-cutlery fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge" id="stat-today-meals">45</div>
+                                <div>Meals Recorded Today</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="panel panel-green">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-users fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">2</div>
+                                <div>Active Students Count</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="panel panel-yellow">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-list-alt fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">3</div>
+                                <div>Total Notices Published</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Notice Board Accordion -->
+            <div class="col-lg-6">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <i class="fa fa-list-alt fa-fw"></i> Notice Board
+                    </div>
+                    <div class="panel-body">
+                        <div id="accordion" class="panel-group">
+                            <!-- Injected dynamically -->
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <label>Recent Announcements</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendar -->
+            <div class="col-lg-6">
+                <div class="custom-calendar-wrap">
+                    <div id="custom-inner" class="custom-inner">
+                        <div class="custom-header clearfix">
+                            <nav>
+                                <span id="custom-prev" class="custom-prev"></span>
+                                <span id="custom-next" class="custom-next"></span>
+                            </nav>
+                            <h2 id="custom-month" class="custom-month"></h2>
+                            <h2 id="custom-year" class="custom-year"></h2>
+                        </div>
+                        <div id="calendar" class="fc-calendar-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script to hydrate notices & calendar -->
+    <script type="text/javascript">
+        document.addEventListener("layoutScriptsLoaded", function () {
+            // Load Notices
+            const notices = mockDb.getNotices().slice(0, 4); // Show top 4
+            const accordion = document.getElementById('accordion');
+            accordion.innerHTML = "";
+            
+            if (notices.length === 0) {
+                accordion.innerHTML = '<div class="alert alert-warning text-center">No active notices posted.</div>';
+            } else {
+                notices.forEach((notice, idx) => {
+                    const noticeHtml = `
+                        <div class="panel panel-success">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a href="#notice-${notice.serial}" data-parent="#accordion" data-toggle="collapse" aria-expanded="${idx === 0}" class="${idx === 0 ? '' : 'collapsed'}">
+                                        ${notice.title} &nbsp;[${notice.date}]
+                                    </a>
+                                </h4>
+                            </div>
+                            <div class="panel-collapse collapse ${idx === 0 ? 'in' : ''}" id="notice-${notice.serial}" aria-expanded="${idx === 0}" style="${idx === 0 ? '' : 'height: 0px;'}">
+                                <div class="panel-body">
+                                    ${notice.description}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    accordion.insertAdjacentHTML('beforeend', noticeHtml);
+                });
+            }
+
+            // Initialize Calendario
+            var transEndEventNames = {
+                    'WebkitTransition' : 'webkitTransitionEnd',
+                    'MozTransition' : 'transitionend',
+                    'OTransition' : 'oTransitionEnd',
+                    'msTransition' : 'MSTransitionEnd',
+                    'transition' : 'transitionend'
+                },
+                transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
+                $wrapper = $( '#custom-inner' ),
+                $calendar = $( '#calendar' ),
+                cal = $calendar.calendario( {
+                    displayWeekAbbr : true
+                } ),
+                $month = $( '#custom-month' ).html( cal.getMonthName() ),
+                $year = $( '#custom-year' ).html( cal.getYear() );
+
+            $( '#custom-next' ).on( 'click', function() {
+                cal.gotoNextMonth( updateMonthYear );
+            } );
+            $( '#custom-prev' ).on( 'click', function() {
+                cal.gotoPreviousMonth( updateMonthYear );
+            } );
+
+            function updateMonthYear() {
+                $month.html( cal.getMonthName() );
+                $year.html( cal.getYear() );
+            }
+        });
+    </script>
+</body>
+</html>
